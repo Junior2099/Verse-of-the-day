@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versículo do Dia - Bíblia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 115, 85, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(160, 130, 95, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #d4c5a9 0%, #c9b99a 25%, #d4c5a9 50%, #c9b99a 75%, #d4c5a9 100%);
+            background-size: 100% 100%, 100% 100%, 200% 200%;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #3d2817;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 115, 85, 0.03) 2px, rgba(139, 115, 85, 0.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(160, 130, 95, 0.03) 2px, rgba(160, 130, 95, 0.03) 4px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: 
+                linear-gradient(135deg, rgba(245, 235, 215, 0.95) 0%, rgba(240, 230, 210, 0.95) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.1"/></svg>');
+            border-radius: 15px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(139, 115, 85, 0.2);
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+            position: relative;
+            z-index: 1;
+            border: 2px solid rgba(139, 115, 85, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #5d4037;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #6d4c41;
+            font-size: 1.1em;
+        }
+
+        .verse-card {
+            background: linear-gradient(135deg, rgba(250, 240, 220, 0.8) 0%, rgba(245, 235, 215, 0.8) 100%);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 30px 0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(139, 115, 85, 0.2);
+        }
+
+        .verse-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .verse-text {
+            font-size: 1.5em;
+            line-height: 1.8;
+            color: #3d2817;
+            font-style: italic;
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .verse-reference {
+            font-size: 1.2em;
+            color: #5d4037;
+            font-weight: 600;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(139, 115, 85, 0.4);
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%);
+            color: #f5f5f5;
+            box-shadow: 0 5px 15px rgba(109, 76, 65, 0.4);
+            font-family: 'Georgia', serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(109, 76, 65, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(135deg, #a1887f 0%, #8d6e63 100%);
+            box-shadow: 0 5px 15px rgba(161, 136, 127, 0.4);
+        }
+
+        .btn.secondary:hover {
+            box-shadow: 0 8px 20px rgba(161, 136, 127, 0.6);
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #6d4c41;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .verse-text {
+                font-size: 1.2em;
+            }
+            
+            .verse-reference {
+                font-size: 1em;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📖 Versículo do Dia</h1>
+            <p class="subtitle">A cada atualização, um novo versículo</p>
+        </header>
+        
+        <main>
+            <div class="verse-card">
+                <div class="verse-text" id="verseText">
+                    Carregando versículo...
+                </div>
+                <div class="verse-reference" id="verseReference">
+                    ...
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn" id="newVerseBtn">Novo Versículo</button>
+                <button class="btn secondary" id="shareBtn">Compartilhar</button>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Atualize a página para ver um novo versículo</p>
+        </footer>
+    </div>
+    
+    <script>
+        const livrosBiblia = [
+            { nome: "Gênesis", capitulos: 50 },
+            { nome: "Êxodo", capitulos: 40 },
+            { nome: "Levítico", capitulos: 27 },
+            { nome: "Números", capitulos: 36 },
+            { nome: "Deuteronômio", capitulos: 34 },
+            { nome: "Josué", capitulos: 24 },
+            { nome: "Juízes", capitulos: 21 },
+            { nome: "Rute", capitulos: 4 },
+            { nome: "1 Samuel", capitulos: 31 },
+            { nome: "2 Samuel", capitulos: 24 },
+            { nome: "1 Reis", capitulos: 22 },
+            { nome: "2 Reis", capitulos: 25 },
+            { nome: "1 Crônicas", capitulos: 29 },
+            { nome: "2 Crônicas", capitulos: 36 },
+            { nome: "Esdras", capitulos: 10 },
+            { nome: "Neemias", capitulos: 13 },
+            { nome: "Ester", capitulos: 10 },
+            { nome: "Jó", capitulos: 42 },
+            { nome: "Salmos", capitulos: 150 },
+            { nome: "Provérbios", capitulos: 31 },
+            { nome: "Eclesiastes", capitulos: 12 },
+            { nome: "Cantares", capitulos: 8 },
+            { nome: "Isaías", capitulos: 66 },
+            { nome: "Jeremias", capitulos: 52 },
+            { nome: "Lamentações", capitulos: 5 },
+            { nome: "Ezequiel", capitulos: 48 },
+            { nome: "Daniel", capitulos: 12 },
+            { nome: "Oséias", capitulos: 14 },
+            { nome: "Joel", capitulos: 3 },
+            { nome: "Amós", capitulos: 9 },
+            { nome: "Obadias", capitulos: 1 },
+            { nome: "Jonas", capitulos: 4 },
+            { nome: "Miquéias", capitulos: 7 },
+            { nome: "Naum", capitulos: 3 },
+            { nome: "Habacuque", capitulos: 3 },
+            { nome: "Sofonias", capitulos: 3 },
+            { nome: "Ageu", capitulos: 2 },
+            { nome: "Zacarias", capitulos: 13 },
+            { nome: "Malaquias", capitulos: 4 },
+            { nome: "Mateus", capitulos: 28 },
+            { nome: "Marcos", capitulos: 28 },
+            { nome: "Lucas", capitulos: 28 },
+            { nome: "João", capitulos: 21 },
+            { nome: "Atos", capitulos: 28 },
+            { nome: "Romanos", capitulos: 16 },
+            { nome: "1 Coríntios", capitulos: 16 },
+            { nome: "2 Coríntios", capitulos: 13 },
+            { nome: "Gálatas", capitulos: 6 },
+            { nome: "Efésios", capitulos: 6 },
+            { nome: "Filipenses", capitulos: 4 },
+            { nome: "Colossenses", capitulos: 4 },
+            { nome: "1 Tessalonicenses", capitulos: 5 },
+            { nome: "2 Tessalonicenses", capitulos: 3 },
+            { nome: "1 Timóteo", capitulos: 6 },
+            { nome: "2 Timóteo", capitulos: 4 },
+            { nome: "Tito", capitulos: 3 },
+            { nome: "Filemom", capitulos: 1 },
+            { nome: "Hebreus", capitulos: 13 },
+            { nome: "Tiago", capitulos: 5 },
+            { nome: "1 Pedro", capitulos: 5 },
+            { nome: "2 Pedro", capitulos: 3 },
+            { nome: "1 João", capitulos: 5 },
+            { nome: "2 João", capitulos: 1 },
+            { nome: "3 João", capitulos: 1 },
+            { nome: "Judas", capitulos: 1 },
+            { nome: "Apocalipse", capitulos: 22 }
+        ];
+
+        const versiculosPorCapitulo = 25;
+
+        const versiculos = [
+            { texto: "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna.", referencia: "João 3:16" },
+            { texto: "Entrega o teu caminho ao Senhor; confia nele, e ele o fará.", referencia: "Salmos 37:5" },
+            { texto: "Porque eu bem sei os pensamentos que tenho a vosso respeito, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais.", referencia: "Jeremias 29:11" },
+            { texto: "Tudo posso naquele que me fortalece.", referencia: "Filipenses 4:13" },
+            { texto: "O Senhor é o meu pastor; nada me faltará.", referencia: "Salmos 23:1" },
+            { texto: "Lança sobre o Senhor o teu cuidado, e ele te susterá; nunca permitirá que o justo seja abalado.", referencia: "Salmos 55:22" },
+            { texto: "Confia no Senhor de todo o teu coração, e não te estribes no teu próprio entendimento.", referencia: "Provérbios 3:5" },
+            { texto: "Porque para Deus nada é impossível.", referencia: "Lucas 1:37" },
+            { texto: "Mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias; correrão, e não se cansarão; andarão, e não se fatigarão.", referencia: "Isaías 40:31" },
+            { texto: "Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço, e te ajudo, e te sustento com a destra da minha justiça.", referencia: "Isaías 41:10" },
+            { texto: "Porque onde estiver o teu tesouro, aí estará também o teu coração.", referencia: "Mateus 6:21" },
+            { texto: "Buscai ao Senhor enquanto se pode achar, invocai-o enquanto está perto.", referencia: "Isaías 55:6" },
+            { texto: "O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me recearei?", referencia: "Salmos 27:1" },
+            { texto: "E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus, daqueles que são chamados segundo o seu propósito.", referencia: "Romanos 8:28" },
+            { texto: "Porque a palavra de Deus é viva e eficaz, e mais penetrante do que espada alguma de dois gumes.", referencia: "Hebreus 4:12" },
+            { texto: "Mas, se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados, e nos purificar de toda a injustiça.", referencia: "1 João 1:9" },
+            { texto: "Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei.", referencia: "Mateus 11:28" },
+            { texto: "O Senhor é o meu rochedo, e o meu lugar forte, e o meu libertador; o meu Deus, a minha fortaleza, em quem confio.", referencia: "Salmos 18:2" },
+            { texto: "Porque não me deste um espírito de temor, mas de fortaleza, e de amor, e de moderação.", referencia: "2 Timóteo 1:7" },
+            { texto: "E a paz de Deus, que excede todo o entendimento, guardará os vossos corações e os vossos pensamentos em Cristo Jesus.", referencia: "Filipenses 4:7" },
+            { texto: "Porque todos pecaram e destituídos estão da glória de Deus.", referencia: "Romanos 3:23" },
+            { texto: "Mas o fruto do Espírito é: amor, gozo, paz, longanimidade, benignidade, bondade, fé, mansidão, temperança.", referencia: "Gálatas 5:22" },
+            { texto: "Eis que estou à porta, e bato; se alguém ouvir a minha voz, e abrir a porta, entrarei em sua casa, e com ele cearei, e ele comigo.", referencia: "Apocalipse 3:20" },
+            { texto: "Porque a graça de Deus se há manifestado, trazendo salvação a todos os homens.", referencia: "Tito 2:11" },
+            { texto: "Porque o salário do pecado é a morte, mas o dom gratuito de Deus é a vida eterna, por Cristo Jesus nosso Senhor.", referencia: "Romanos 6:23" },
+            { texto: "E não vos conformeis com este mundo, mas transformai-vos pela renovação do vosso entendimento.", referencia: "Romanos 12:2" },
+            { texto: "Porque pela graça sois salvos, por meio da fé; e isto não vem de vós, é dom de Deus.", referencia: "Efésios 2:8" },
+            { texto: "O Senhor é a minha força e o meu escudo; a ele confiou o meu coração, e fui socorrido; assim o meu coração se regozija, e com o meu cântico o louvarei.", referencia: "Salmos 28:7" },
+            { texto: "Porque não temos um sumo sacerdote que não possa compadecer-se das nossas fraquezas; porém, um que, como nós, em tudo foi tentado, mas sem pecado.", referencia: "Hebreus 4:15" },
+            { texto: "E o Deus de toda a graça, que em Cristo Jesus vos chamou à sua eterna glória, depois de haverdes padecido um pouco, ele mesmo vos aperfeiçoará, confirmará, fortificará e fortalecerá.", referencia: "1 Pedro 5:10" },
+            { texto: "Porque eu sou o Senhor, teu Deus, que te seguro pela tua mão direita, e te digo: Não temas, eu te ajudo.", referencia: "Isaías 41:13" },
+            { texto: "O Senhor é bom, uma fortaleza no dia da angústia, e conhece os que confiam nele.", referencia: "Naum 1:7" },
+            { texto: "Porque os meus pensamentos não são os vossos pensamentos, nem os vossos caminhos os meus caminhos, diz o Senhor.", referencia: "Isaías 55:8" },
+            { texto: "E não nos cansemos de fazer bem, porque a seu tempo ceifaremos, se não houvermos desfalecido.", referencia: "Gálatas 6:9" },
+            { texto: "Porque o Senhor não desampara o seu povo, nem abandona a sua herança.", referencia: "Salmos 94:14" },
+            { texto: "E aquele que é poderoso para fazer tudo muito mais abundantemente além daquilo que pedimos ou pensamos, segundo o poder que em nós opera.", referencia: "Efésios 3:20" },
+            { texto: "Porque o Senhor corrige o que ama, e açoita a qualquer que recebe por filho.", referencia: "Hebreus 12:6" },
+            { texto: "E sabemos que o Filho de Deus é vindo e nos tem dado entendimento para conhecermos o que é verdadeiro; e no que é verdadeiro estamos, isto é, em seu Filho Jesus Cristo. Este é o verdadeiro Deus e a vida eterna.", referencia: "1 João 5:20" },
+            { texto: "Porque o Senhor teu Deus está no meio de ti, poderoso para te salvar; ele se deleitará em ti com alegria; calar-se-á por seu amor, e se regozijará em ti com júbilo.", referencia: "Sofonias 3:17" },
+            { texto: "E a oração da fé salvará o doente, e o Senhor o levantará; e, se houver cometido pecados, ser-lhe-ão perdoados.", referencia: "Tiago 5:15" },
+            { texto: "Porque o Senhor é grande e digno de ser louvado, mais temível do que todos os deuses.", referencia: "Salmos 96:4" }
+        ];
+
+        function estaEmPortugues(texto) {
+            if (!texto) return false;
+            const acentosPortugues = /[áàâãéêíóôõúçÁÀÂÃÉÊÍÓÔÕÚÇ]/;
+            const palavrasPortugues = /\b(deus|senhor|jesus|cristo|espírito|santo|palavra|vida|amor|fé|graça|paz|alma|coração|mundo|homem|mulher|filho|pai|mãe|terra|céu|água|fogo|luz|trevas|bem|mal|pecado|salvação|eterna|eterno|que|não|para|com|por|sobre|diz|disse|será|serão|está|estão)\b/i;
+            const palavrasIngles = /\b(the|and|of|to|in|is|it|you|that|he|was|for|on|are|as|with|his|they|be|at|one|have|this|from|or|had|by|not|word|but|what|all|were|we|when|your|can|said|there|each|which|she|do|how|their|if|will|up|other|about|out|many|then|them|these|so|some|her|would|make|like|into|him|has|two|more|very|after|words|long|than|first|been|call|who|oil|its|now|find|down|day|did|get|come|made|may|part)\b/i;
+            const temAcentos = acentosPortugues.test(texto);
+            const matchesPT = (texto.match(palavrasPortugues) || []).length;
+            const matchesEN = (texto.match(palavrasIngles) || []).length;
+            if (temAcentos) return true;
+            if (matchesPT > matchesEN) return true;
+            if (matchesEN > 3 && matchesPT === 0) return false;
+            return matchesEN < 2;
+        }
+
+        async function obterVersiculoAleatorioAPI() {
+            for (let tentativa = 0; tentativa < 3; tentativa++) {
+                try {
+                    const livro = livrosBiblia[Math.floor(Math.random() * livrosBiblia.length)];
+                    const capitulo = Math.floor(Math.random() * livro.capitulos) + 1;
+                    const versiculo = Math.floor(Math.random() * versiculosPorCapitulo) + 1;
+                    let livroFormatado = livro.nome.toLowerCase().replace(/\s+/g, '%20');
+                    const url = `https://bible-api.com/${livroFormatado}%20${capitulo}:${versiculo}`;
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.text && data.reference) {
+                            const texto = data.text.trim();
+                            if (estaEmPortugues(texto)) {
+                                return {
+                                    texto: texto,
+                                    referencia: data.reference
+                                };
+                            } else {
+                                continue;
+                            }
+                        }
+                    }
+                } catch (error) {
+                    continue;
+                }
+            }
+            return obterVersiculoAleatorioLocal();
+        }
+
+        function obterVersiculoAleatorioLocal() {
+            const indice = Math.floor(Math.random() * versiculos.length);
+            return versiculos[indice];
+        }
+
+        async function exibirVersiculo() {
+            const verseText = document.getElementById('verseText');
+            const verseReference = document.getElementById('verseReference');
+            verseText.textContent = "Carregando versículo...";
+            verseReference.textContent = "";
+            verseText.style.opacity = '0';
+            verseReference.style.opacity = '0';
+            try {
+                const versiculo = await obterVersiculoAleatorioAPI();
+                setTimeout(() => {
+                    verseText.textContent = `"${versiculo.texto}"`;
+                    verseReference.textContent = versiculo.referencia;
+                    verseText.style.opacity = '1';
+                    verseReference.style.opacity = '1';
+                }, 300);
+            } catch (error) {
+                verseText.textContent = "Erro ao carregar versículo. Tente novamente.";
+                verseReference.textContent = "";
+                verseText.style.opacity = '1';
+            }
+        }
+
+        function compartilharVersiculo() {
+            const verseText = document.getElementById('verseText').textContent;
+            const verseReference = document.getElementById('verseReference').textContent;
+            const textoCompleto = `${verseText}\n\n${verseReference}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Versículo Bíblico',
+                    text: textoCompleto
+                }).catch(err => console.log('Erro ao compartilhar:', err));
+            } else {
+                navigator.clipboard.writeText(textoCompleto).then(() => {
+                    alert('Versículo copiado para a área de transferência!');
+                }).catch(err => {
+                    prompt('Copie o versículo:', textoCompleto);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const verseText = document.getElementById('verseText');
+            const verseReference = document.getElementById('verseReference');
+            verseText.style.transition = 'opacity 0.3s ease';
+            verseReference.style.transition = 'opacity 0.3s ease';
+            exibirVersiculo();
+            document.getElementById('newVerseBtn').addEventListener('click', exibirVersiculo);
+            document.getElementById('shareBtn').addEventListener('click', compartilharVersiculo);
+        });
+    </script>
+</body>
+</html>
